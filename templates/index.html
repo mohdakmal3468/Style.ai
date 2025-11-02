@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Styler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Upload & Style Your Image ✨</h1>
+            <p>Transform your image with AI-powered style transfer</p>
+        </header>
+
+        <form method="POST" enctype="multipart/form-data" onsubmit="showSpinner()">
+            <label class="upload-label">
+                <input type="file" name="image" accept="image/*" required>
+                <span>📁 Choose Image</span>
+            </label>
+            <button type="submit">🎨 Stylize</button>
+        </form>
+
+        <div id="spinner" class="spinner" style="display: none;"></div>
+
+        {% if image_url or stylized_url %}
+        <section class="results">
+            {% if image_url %}
+            <div class="image-card">
+                <h3>Original Image</h3>
+                <img src="{{ image_url }}" alt="Original Image">
+            </div>
+            {% endif %}
+
+            {% if stylized_url %}
+            <div class="image-card">
+                <h3>Stylized Image</h3>
+                <img src="{{ stylized_url }}" alt="Stylized Image">
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+    </div>
+
+    <script>
+        function showSpinner() {
+            document.getElementById('spinner').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
